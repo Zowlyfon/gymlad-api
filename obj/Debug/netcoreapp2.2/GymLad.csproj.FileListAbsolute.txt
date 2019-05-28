@@ -1,0 +1,14 @@
+/home/zowlyfon/projects/gymlad-webapi/GymLad/obj/Debug/netcoreapp2.2/GymLad.csprojAssemblyReference.cache
+/home/zowlyfon/projects/gymlad-webapi/GymLad/obj/Debug/netcoreapp2.2/GymLad.csproj.CoreCompileInputs.cache
+/home/zowlyfon/projects/gymlad-webapi/GymLad/obj/Debug/netcoreapp2.2/GymLad.RazorAssemblyInfo.cache
+/home/zowlyfon/projects/gymlad-webapi/GymLad/obj/Debug/netcoreapp2.2/GymLad.RazorAssemblyInfo.cs
+/home/zowlyfon/projects/gymlad-webapi/GymLad/obj/Debug/netcoreapp2.2/GymLad.AssemblyInfoInputs.cache
+/home/zowlyfon/projects/gymlad-webapi/GymLad/obj/Debug/netcoreapp2.2/GymLad.AssemblyInfo.cs
+/home/zowlyfon/projects/gymlad-webapi/GymLad/bin/Debug/netcoreapp2.2/GymLad.deps.json
+/home/zowlyfon/projects/gymlad-webapi/GymLad/bin/Debug/netcoreapp2.2/GymLad.runtimeconfig.json
+/home/zowlyfon/projects/gymlad-webapi/GymLad/bin/Debug/netcoreapp2.2/GymLad.runtimeconfig.dev.json
+/home/zowlyfon/projects/gymlad-webapi/GymLad/bin/Debug/netcoreapp2.2/GymLad.dll
+/home/zowlyfon/projects/gymlad-webapi/GymLad/bin/Debug/netcoreapp2.2/GymLad.pdb
+/home/zowlyfon/projects/gymlad-webapi/GymLad/obj/Debug/netcoreapp2.2/GymLad.RazorTargetAssemblyInfo.cache
+/home/zowlyfon/projects/gymlad-webapi/GymLad/obj/Debug/netcoreapp2.2/GymLad.dll
+/home/zowlyfon/projects/gymlad-webapi/GymLad/obj/Debug/netcoreapp2.2/GymLad.pdb
