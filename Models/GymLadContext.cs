@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using AutoMapper;
 
 namespace GymLad.Models
 {
@@ -9,9 +11,9 @@ namespace GymLad.Models
 
         }
 
-        public DbSet<Exercise> Exercises { get; set; }
-        public DbSet<Person> People { get; set; }
-        public DbSet<Workout> Workouts { get; set; }
-        public DbSet<Set> Sets { get; set; }
+        public virtual DbSet<Exercise> Exercises { get; set; }
+        public virtual DbSet<Person> People { get; set; }
+        public virtual DbSet<Workout> Workouts { get; set; }
+        public virtual DbSet<Set> Sets { get; set; }
     }
 }

@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
 using GymLad.Models;
+using AutoMapper;
 
 namespace GymLad
 {
@@ -31,6 +32,8 @@ namespace GymLad
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(MappingProfile));
+
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,
@@ -53,6 +56,7 @@ namespace GymLad
             {
                 c.SwaggerDoc("v1", new Info { Title = "GymLad API", Version = "v1" });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

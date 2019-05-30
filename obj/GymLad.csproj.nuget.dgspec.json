@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/zowlyfon/projects/gymlad-webapi/GymLad/GymLad.csproj": {}
+    "/home/zowlyfon/projects/gymlad-api/GymLad.csproj": {}
   },
   "projects": {
-    "/home/zowlyfon/projects/gymlad-webapi/GymLad/GymLad.csproj": {
+    "/home/zowlyfon/projects/gymlad-api/GymLad.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/zowlyfon/projects/gymlad-webapi/GymLad/GymLad.csproj",
+        "projectUniqueName": "/home/zowlyfon/projects/gymlad-api/GymLad.csproj",
         "projectName": "GymLad",
-        "projectPath": "/home/zowlyfon/projects/gymlad-webapi/GymLad/GymLad.csproj",
+        "projectPath": "/home/zowlyfon/projects/gymlad-api/GymLad.csproj",
         "packagesPath": "/home/zowlyfon/.nuget/packages/",
-        "outputPath": "/home/zowlyfon/projects/gymlad-webapi/GymLad/obj/",
+        "outputPath": "/home/zowlyfon/projects/gymlad-api/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
@@ -39,6 +39,14 @@
       "frameworks": {
         "netcoreapp2.2": {
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[8.1.0, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[6.1.0, )"
+            },
             "Microsoft.AspNetCore.App": {
               "suppressParent": "All",
               "target": "Package",

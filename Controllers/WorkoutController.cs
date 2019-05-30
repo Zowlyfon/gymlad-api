@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GymLad.Models;
+using AutoMapper;
 
 namespace GymLad.Controllers
 {
@@ -14,26 +15,29 @@ namespace GymLad.Controllers
     public class WorkoutController : ControllerBase
     {
         private readonly GymLadContext _context;
+        private readonly IMapper _mapper;
 
-        public WorkoutController(GymLadContext context)
+        public WorkoutController(GymLadContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Workout/{id}/Sets
         [HttpGet("Sets/{id}")]
-        public async Task<ActionResult<IEnumerable<Set>>> GetSets(long id)
+        public async Task<ActionResult<IEnumerable<SetDTO>>> GetSets(long id)
         {
             var workout = await _context.Workouts.FindAsync(id);
-            var sets = workout.Sets.ToList();
-            return sets;
+            var sets = await _mapper.ProjectTo<SetDTO>(workout.Sets).ToListAsync();
+            return Ok(sets);
         }
 
         // GET: api/Workout
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Workout>>> GetWorkouts()
+        public async Task<ActionResult<IEnumerable<WorkoutDTO>>> GetWorkouts()
         {
-            return await _context.Workouts.ToListAsync();
+            var workouts = await _mapper.ProjectTo<WorkoutDTO>(_context.Workouts).ToListAsync();
+            return Ok(workouts);
         }
 
         // GET: api/Workout/5
@@ -47,7 +51,9 @@ namespace GymLad.Controllers
                 return NotFound();
             }
 
-            return workout;
+            var dto = _mapper.Map<WorkoutDTO>(workout);
+
+            return Ok(dto);
         }
 
         // PUT: api/Workout/5
@@ -103,7 +109,9 @@ namespace GymLad.Controllers
             _context.Workouts.Remove(workout);
             await _context.SaveChangesAsync();
 
-            return workout;
+            var dto = _mapper.Map<WorkoutDTO>(workout);
+
+            return Ok(dto);
         }
 
         private bool WorkoutExists(long id)

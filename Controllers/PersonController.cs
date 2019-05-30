@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GymLad.Models;
+using AutoMapper;
 
 namespace GymLad.Controllers
 {
@@ -14,22 +15,25 @@ namespace GymLad.Controllers
     public class PersonController : ControllerBase
     {
         private readonly GymLadContext _context;
+        private readonly IMapper _mapper;
 
-        public PersonController(GymLadContext context)
+        public PersonController(GymLadContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Person
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Person>>> GetPeople()
+        public async Task<ActionResult<IEnumerable<PersonDTO>>> GetPeople()
         {
-            return await _context.People.ToListAsync();
+            var people = await _mapper.ProjectTo<PersonDTO>(_context.People).ToListAsync();
+            return Ok(people);
         }
 
         // GET: api/Person/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> GetPerson(long id)
+        public async Task<ActionResult<PersonDTO>> GetPerson(long id)
         {
             var person = await _context.People.FindAsync(id);
 
@@ -38,7 +42,9 @@ namespace GymLad.Controllers
                 return NotFound();
             }
 
-            return person;
+            var dto = _mapper.Map<PersonDTO>(person);
+
+            return Ok(dto);
         }
 
         // PUT: api/Person/5

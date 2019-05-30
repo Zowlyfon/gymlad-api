@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GymLad.Models;
+using AutoMapper;
 
 namespace GymLad.Controllers
 {
@@ -14,17 +15,20 @@ namespace GymLad.Controllers
     public class SetController : ControllerBase
     {
         private readonly GymLadContext _context;
+        private readonly IMapper _mapper;
 
-        public SetController(GymLadContext context)
+        public SetController(GymLadContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Set
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Set>>> GetSets()
+        public async Task<ActionResult<IEnumerable<SetDTO>>> GetSets()
         {
-            return await _context.Sets.ToListAsync();
+            var sets = await _mapper.ProjectTo<SetDTO>(_context.Sets).ToListAsync();
+            return Ok(sets);
         }
 
         // GET: api/Set/5
