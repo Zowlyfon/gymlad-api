@@ -33,7 +33,7 @@ namespace GymLad.Controllers
 
         // GET: api/Exercise/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Exercise>> GetExercise(long id)
+        public async Task<ActionResult<ExerciseDTO>> GetExercise(long id)
         {
             var exercise = await _context.Exercises.FindAsync(id);
 
@@ -79,17 +79,19 @@ namespace GymLad.Controllers
 
         // POST: api/Exercise
         [HttpPost]
-        public async Task<ActionResult<Exercise>> PostExercise(Exercise exercise)
+        public async Task<ActionResult<ExerciseDTO>> PostExercise(Exercise exercise)
         {
             _context.Exercises.Add(exercise);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetExercise", new { id = exercise.Id }, exercise);
+            var dto = _mapper.Map<ExerciseDTO>(exercise);
+
+            return CreatedAtAction("GetExercise", new { id = dto.Id }, dto);
         }
 
         // DELETE: api/Exercise/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Exercise>> DeleteExercise(long id)
+        public async Task<ActionResult<ExerciseDTO>> DeleteExercise(long id)
         {
             var exercise = await _context.Exercises.FindAsync(id);
             if (exercise == null)
@@ -100,7 +102,9 @@ namespace GymLad.Controllers
             _context.Exercises.Remove(exercise);
             await _context.SaveChangesAsync();
 
-            return exercise;
+            var dto = _mapper.Map<ExerciseDTO>(exercise);
+
+            return dto;
         }
 
         private bool ExerciseExists(long id)

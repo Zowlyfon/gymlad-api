@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/zowlyfon/projects/gymlad-api/GymLad.csproj": {}
+    "/home/zowlyfon/projects/gymlad-webapi/GymLad/GymLad.csproj": {}
   },
   "projects": {
-    "/home/zowlyfon/projects/gymlad-api/GymLad.csproj": {
+    "/home/zowlyfon/projects/gymlad-webapi/GymLad/GymLad.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/zowlyfon/projects/gymlad-api/GymLad.csproj",
+        "projectUniqueName": "/home/zowlyfon/projects/gymlad-webapi/GymLad/GymLad.csproj",
         "projectName": "GymLad",
-        "projectPath": "/home/zowlyfon/projects/gymlad-api/GymLad.csproj",
+        "projectPath": "/home/zowlyfon/projects/gymlad-webapi/GymLad/GymLad.csproj",
         "packagesPath": "/home/zowlyfon/.nuget/packages/",
-        "outputPath": "/home/zowlyfon/projects/gymlad-api/obj/",
+        "outputPath": "/home/zowlyfon/projects/gymlad-webapi/GymLad/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
