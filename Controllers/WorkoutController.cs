@@ -28,8 +28,20 @@ namespace GymLad.Controllers
         public async Task<ActionResult<IEnumerable<SetDTO>>> GetSets(long id)
         {
             var workout = await _context.Workouts.FindAsync(id);
-            var sets = await _mapper.ProjectTo<SetDTO>(workout.Sets).ToListAsync();
-            return Ok(sets);
+
+            if (workout == null)
+            {
+                return NotFound();
+            }
+
+            var sets = _context.Sets
+                .Where(s => s.WorkoutId == workout.Id);
+
+            if (sets == null) {
+                return NoContent();
+            }
+            var dto = await _mapper.ProjectTo<SetDTO>(sets).ToListAsync();
+            return Ok(dto);
         }
 
         // GET: api/Workout
