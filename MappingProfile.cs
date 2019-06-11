@@ -8,6 +8,7 @@ namespace GymLad {
             CreateMap<Set, SetDTO>();
             CreateMap<Person, PersonDTO>();
             CreateMap<Exercise, ExerciseDTO>();
+            CreateMap<CreatePersonDTO, Person>();
         }
     }
 

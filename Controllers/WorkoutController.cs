@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GymLad.Models;
+using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 
 namespace GymLad.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class WorkoutController : ControllerBase
     {
         private readonly GymLadContext _context;

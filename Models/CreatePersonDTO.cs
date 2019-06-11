@@ -5,14 +5,14 @@ using Microsoft.AspNetCore.Identity;
 
 namespace GymLad.Models
 {
-    public class Person : IdentityUser<long>
+    public class CreatePersonDTO
     {
+        public string UserName { get; set; }
+        public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public float Height { get; set; }
         public float Weight { get; set; }
         public int Age { get; set; }
-
-        public IQueryable<Workout> Workouts { get; set; }
     }
 }
