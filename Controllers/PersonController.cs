@@ -77,6 +77,22 @@ namespace GymLad.Controllers
             return BadRequest();
         }
 
+        // GET: api/Person/Me
+        [HttpGet("me")]
+        public async Task<ActionResult<PersonDTO>> GetMe()
+        {
+            var person = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            var dto = _mapper.Map<PersonDTO>(person);
+
+            return Ok(dto);
+        }
+
         // GET: api/Person
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PersonDTO>>> GetPeople()
