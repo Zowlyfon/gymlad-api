@@ -56,7 +56,7 @@ namespace GymLad.Controllers
 
         // GET: api/Workout/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Workout>> GetWorkout(long id)
+        public async Task<ActionResult<WorkoutDTO>> GetWorkout(long id)
         {
             var workout = await _context.Workouts.FindAsync(id);
 

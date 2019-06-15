@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymLad.Migrations
 {
     [DbContext(typeof(GymLadContext))]
-    [Migration("20190606211931_auth")]
-    partial class auth
+    [Migration("20190615175151_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,7 +25,13 @@ namespace GymLad.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<long>("PersonId");
+
+                    b.Property<float>("TrainingMax");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
 
                     b.ToTable("Exercises");
                 });
@@ -37,9 +43,9 @@ namespace GymLad.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<int>("Age");
-
                     b.Property<string>("ConcurrencyStamp");
+
+                    b.Property<DateTime>("DoB");
 
                     b.Property<string>("Email");
 
@@ -114,6 +120,14 @@ namespace GymLad.Migrations
                     b.HasIndex("PersonId");
 
                     b.ToTable("Workouts");
+                });
+
+            modelBuilder.Entity("GymLad.Models.Exercise", b =>
+                {
+                    b.HasOne("GymLad.Models.Person", "Person")
+                        .WithMany("Exercises")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GymLad.Models.Set", b =>

@@ -11,8 +11,9 @@ namespace GymLad.Models
         public string LastName { get; set; }
         public float Height { get; set; }
         public float Weight { get; set; }
-        public int Age { get; set; }
+        public DateTime DoB { get; set; }
 
         public IQueryable<Workout> Workouts { get; set; }
+        public IQueryable<Exercise> Exercises { get; set; }
     }
 }

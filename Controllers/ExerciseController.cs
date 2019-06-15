@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using GymLad.Models;
@@ -18,11 +19,22 @@ namespace GymLad.Controllers
     {
         private readonly GymLadContext _context;
         private readonly IMapper _mapper;
+        private readonly UserManager<Person> _userManager;
 
-        public ExerciseController(GymLadContext context, IMapper mapper)
+        public ExerciseController(GymLadContext context, IMapper mapper, UserManager<Person> userManager)
         {
             _context = context;
             _mapper = mapper;
+            _userManager = userManager;
+        }
+
+        // GET: api/Exercise/Person/
+        [HttpGet("Person")]
+        public async Task<ActionResult<IEnumerable<ExerciseDTO>>> GetPersonExercises()
+        {
+            var person = await _userManager.FindByNameAsync(User.Identity.Name);
+            var exercises = await _mapper.ProjectTo<ExerciseDTO>(_context.Exercises.Where(e => e.PersonId == person.Id)).ToListAsync();
+            return Ok(exercises);
         }
 
         // GET: api/Exercise

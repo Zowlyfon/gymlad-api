@@ -11,6 +11,6 @@ namespace GymLad.Models
         public string LastName { get; set; }
         public float height { get; set; }
         public float weight { get; set; }
-        public int age { get; set; }
+        public DateTime DoB { get; set; }
     }
 }
