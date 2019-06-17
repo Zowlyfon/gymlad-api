@@ -6,7 +6,7 @@ RUN dotnet restore
 
 COPY gymlad-api/. .
 
-RUN dotnet publish -c Release -o out
+RUN dotnet publish -c Debug -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
 ENV ASPNETCORE_URLS http://*:5000
