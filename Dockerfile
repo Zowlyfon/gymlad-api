@@ -6,6 +6,7 @@ RUN dotnet restore
 
 COPY gymlad-api/. .
 
+RUN dotnet ef database update
 RUN dotnet publish -c Debug -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
