@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 using System.Text;
 using GymLad.Models;
@@ -53,10 +54,9 @@ namespace GymLad
                 });
             });
 
-            var connection = "Data Source=GymLad.db";
-
-            services.AddDbContext<GymLadContext>(opt => 
-                opt.UseLazyLoadingProxies().UseSqlite(connection));
+            services.AddEntityFrameworkNpgsql()
+                .AddDbContext<GymLadContext>()
+                .BuildServiceProvider();
 
             services.AddDefaultIdentity<Person>()
                 .AddEntityFrameworkStores<GymLadContext>();

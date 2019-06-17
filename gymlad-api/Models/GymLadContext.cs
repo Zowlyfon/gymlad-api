@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using AutoMapper;
+using System;
 
 namespace GymLad.Models
 {
@@ -9,6 +10,12 @@ namespace GymLad.Models
         public GymLadContext(DbContextOptions<GymLadContext> options) : base(options)
         {
 
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var connection = Environment.GetEnvironmentVariable("DATABASE_URL");
+            optionsBuilder.UseNpgsql(connection);
         }
         public virtual DbSet<Exercise> Exercises { get; set; }
         public virtual DbSet<Person> People { get; set; }
