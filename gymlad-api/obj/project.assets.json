@@ -13851,7 +13851,7 @@
       "Microsoft.EntityFrameworkCore.Sqlite >= 2.2.4",
       "Microsoft.NETCore.App >= 2.2.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.2.3",
-      "Npgsql.EntityFrameworkCore.PostgreSQL",
+      "Npgsql.EntityFrameworkCore.PostgreSQL >= 2.2.4",
       "Swashbuckle.AspNetCore >= 4.0.1"
     ]
   },
@@ -13862,11 +13862,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/zowlyfon/projects/gymlad-api/GymLad.csproj",
+      "projectUniqueName": "/home/zowlyfon/projects/gymlad-api/gymlad-api/GymLad.csproj",
       "projectName": "GymLad",
-      "projectPath": "/home/zowlyfon/projects/gymlad-api/GymLad.csproj",
+      "projectPath": "/home/zowlyfon/projects/gymlad-api/gymlad-api/GymLad.csproj",
       "packagesPath": "/home/zowlyfon/.nuget/packages/",
-      "outputPath": "/home/zowlyfon/projects/gymlad-api/obj/",
+      "outputPath": "/home/zowlyfon/projects/gymlad-api/gymlad-api/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"
@@ -13933,7 +13933,7 @@
           },
           "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",
-            "version": "(, )"
+            "version": "[2.2.4, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
