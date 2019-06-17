@@ -10,7 +10,7 @@ namespace GymLad.Handlers
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, SamePersonRequirement requirement, Person resource)
         {
-            if(context.User.Identity?.Name == resource.UserName)
+            if (context.User.Identity?.Name == resource.UserName)
             {
                 context.Succeed(requirement);
             }

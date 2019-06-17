@@ -3,14 +3,16 @@ using System;
 using GymLad.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GymLad.Migrations
 {
     [DbContext(typeof(GymLadContext))]
-    partial class GymLadContextModelSnapshot : ModelSnapshot
+    [Migration("20190616153531_ExercisePersonFK2")]
+    partial class ExercisePersonFK2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,28 +106,6 @@ namespace GymLad.Migrations
                     b.ToTable("Sets");
                 });
 
-            modelBuilder.Entity("GymLad.Models.SetTemplate", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<long>("ExerciseId");
-
-                    b.Property<float>("Percentage");
-
-                    b.Property<int>("Reps");
-
-                    b.Property<long>("WorkoutTemplateId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ExerciseId");
-
-                    b.HasIndex("WorkoutTemplateId");
-
-                    b.ToTable("SetTemplates");
-                });
-
             modelBuilder.Entity("GymLad.Models.Workout", b =>
                 {
                     b.Property<long>("Id")
@@ -140,22 +120,6 @@ namespace GymLad.Migrations
                     b.HasIndex("PersonId");
 
                     b.ToTable("Workouts");
-                });
-
-            modelBuilder.Entity("GymLad.Models.WorkoutTemplate", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<long>("PersonId");
-
-                    b.Property<string>("TemplateName");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("WorkoutTemplates");
                 });
 
             modelBuilder.Entity("GymLad.Models.Exercise", b =>
@@ -179,31 +143,10 @@ namespace GymLad.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("GymLad.Models.SetTemplate", b =>
-                {
-                    b.HasOne("GymLad.Models.Exercise", "Exercise")
-                        .WithMany("SetTemplates")
-                        .HasForeignKey("ExerciseId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("GymLad.Models.WorkoutTemplate", "WorkoutTemplate")
-                        .WithMany("SetTemplates")
-                        .HasForeignKey("WorkoutTemplateId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("GymLad.Models.Workout", b =>
                 {
                     b.HasOne("GymLad.Models.Person", "Person")
                         .WithMany("Workouts")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("GymLad.Models.WorkoutTemplate", b =>
-                {
-                    b.HasOne("GymLad.Models.Person", "Person")
-                        .WithMany("WorkoutTemplates")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

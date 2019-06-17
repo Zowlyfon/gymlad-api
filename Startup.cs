@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Proxies;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -55,7 +56,7 @@ namespace GymLad
             var connection = "Data Source=GymLad.db";
 
             services.AddDbContext<GymLadContext>(opt => 
-                opt.UseSqlite(connection));
+                opt.UseLazyLoadingProxies().UseSqlite(connection));
 
             services.AddDefaultIdentity<Person>()
                 .AddEntityFrameworkStores<GymLadContext>();

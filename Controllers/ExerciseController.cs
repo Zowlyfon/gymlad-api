@@ -21,11 +21,14 @@ namespace GymLad.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<Person> _userManager;
 
-        public ExerciseController(GymLadContext context, IMapper mapper, UserManager<Person> userManager)
+        private readonly IAuthorizationService _authorisationService;
+
+        public ExerciseController(GymLadContext context, IMapper mapper, UserManager<Person> userManager, IAuthorizationService authorisationService)
         {
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
+            _authorisationService = authorisationService;
         }
 
         // GET: api/Exercise/Person/
@@ -51,6 +54,13 @@ namespace GymLad.Controllers
         {
             var exercise = await _context.Exercises.FindAsync(id);
 
+            var authResult = await _authorisationService.AuthorizeAsync(User, exercise.Person, "SamePerson");
+
+            if (!authResult.Succeeded)
+            {
+                return new ForbidResult();
+            }
+
             if (exercise == null)
             {
                 return NotFound();
@@ -68,6 +78,15 @@ namespace GymLad.Controllers
             if (id != exercise.Id)
             {
                 return BadRequest();
+            }
+
+            var person = await _context.People.FindAsync(exercise.PersonId);
+
+            var authResult = await _authorisationService.AuthorizeAsync(User, person, "SamePerson");
+
+            if (!authResult.Succeeded)
+            {
+                return new ForbidResult();
             }
 
             _context.Entry(exercise).State = EntityState.Modified;
@@ -95,6 +114,15 @@ namespace GymLad.Controllers
         [HttpPost]
         public async Task<ActionResult<ExerciseDTO>> PostExercise(Exercise exercise)
         {
+            var person = await _context.People.FindAsync(exercise.PersonId);
+
+            var authResult = await _authorisationService.AuthorizeAsync(User, person, "SamePerson");
+
+            if (!authResult.Succeeded)
+            {
+                return new ForbidResult();
+            }
+
             _context.Exercises.Add(exercise);
             await _context.SaveChangesAsync();
 
@@ -108,6 +136,14 @@ namespace GymLad.Controllers
         public async Task<ActionResult<ExerciseDTO>> DeleteExercise(long id)
         {
             var exercise = await _context.Exercises.FindAsync(id);
+
+            var authResult = await _authorisationService.AuthorizeAsync(User, exercise.Person, "SamePerson");
+
+            if (!authResult.Succeeded)
+            {
+                return new ForbidResult();
+            }
+
             if (exercise == null)
             {
                 return NotFound();

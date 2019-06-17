@@ -9,116 +9,71 @@ using GymLad.Models;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 
+
 namespace GymLad.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
-    public class SetController : ControllerBase
+    public class SetTemplateController : ControllerBase
     {
         private readonly GymLadContext _context;
         private readonly IMapper _mapper;
         private readonly IAuthorizationService _authorisationService;
 
-        public SetController(GymLadContext context, IMapper mapper, IAuthorizationService authorisationService)
+        public SetTemplateController(GymLadContext context, IMapper mapper, IAuthorizationService authorisationService)
         {
             _context = context;
             _mapper = mapper;
             _authorisationService = authorisationService;
         }
 
-        // GET: api/Set
+        // GET: api/SetTemplate
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SetDTO>>> GetSets()
+        public async Task<ActionResult<IEnumerable<SetTemplateDTO>>> GetSetTemplates()
         {
-            var sets = await _mapper.ProjectTo<SetDTO>(_context.Sets).ToListAsync();
-            return Ok(sets);
+            var setTemplates = await _mapper.ProjectTo<SetTemplateDTO>(_context.SetTemplates).ToListAsync();
+            return Ok(setTemplates);
         }
 
-        // GET: api/Set/5
+        // GET: api/SetTemplate/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<SetDTO>> GetSet(long id)
+        public async Task<ActionResult<SetTemplateDTO>> GetSetTemplate(long id)
         {
-            var @set = await _context.Sets.FindAsync(id);
+            var setTemplate = await _context.SetTemplates.FindAsync(id);
 
-            var authResult = await _authorisationService.AuthorizeAsync(User, @set.Workout.Person, "SamePerson");
+            var authResult = await _authorisationService.AuthorizeAsync(User, setTemplate.WorkoutTemplate.Person, "SamePerson");
 
             if (!authResult.Succeeded)
             {
                 return new ForbidResult();
             }
 
-            if (@set == null)
+            if (setTemplate == null)
             {
                 return NotFound();
             }
 
-            var dto = _mapper.Map<SetDTO>(@set);
+            var dto = _mapper.Map<SetTemplateDTO>(setTemplate);
 
             return Ok(dto);
         }
 
-        // PUT: api/Set/5
+        // PUT: api/SetTemplate/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSet(long id, Set @set)
+        public async Task<IActionResult> PutSetTemplate(long id, SetTemplate setTemplate)
         {
-            if (id != @set.Id)
+            if (id != setTemplate.Id)
             {
                 return BadRequest();
             }
 
-            var workout = await _context.Workouts.FindAsync(@set.WorkoutId);
+            var workout = await _context.WorkoutTemplates.FindAsync(setTemplate.WorkoutTemplateId);
             if (workout == null) {
                 return BadRequest();
             }
             var person = await _context.People.FindAsync(workout.PersonId);
 
-            var exercise = await _context.Exercises.FindAsync(@set.ExerciseId);
-            if (exercise == null) {
-                return BadRequest();
-            }
-            var person2 = await _context.People.FindAsync(exercise.Person);
-
-            var authResult = await _authorisationService.AuthorizeAsync(User, person, "SamePerson");
-            var authResult2 = await _authorisationService.AuthorizeAsync(User, person2, "SamePerson");
-
-            if ((!authResult.Succeeded) || (!authResult2.Succeeded))
-            {
-                return new ForbidResult();
-            }
-
-            _context.Entry(@set).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SetExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Set
-        [HttpPost]
-        public async Task<ActionResult<SetDTO>> PostSet(Set @set)
-        {
-            var workout = await _context.Workouts.FindAsync(@set.WorkoutId);
-            if (workout == null) {
-                return BadRequest();
-            }
-            var person = await _context.People.FindAsync(workout.PersonId);
-
-            var exercise = await _context.Exercises.FindAsync(@set.ExerciseId);
+            var exercise = await _context.Exercises.FindAsync(setTemplate.ExerciseId);
             if (exercise == null) {
                 return BadRequest();
             }
@@ -132,43 +87,88 @@ namespace GymLad.Controllers
                 return new ForbidResult();
             }
 
-            _context.Sets.Add(@set);
-            await _context.SaveChangesAsync();
+            _context.Entry(setTemplate).State = EntityState.Modified;
 
-            var dto = _mapper.Map<SetDTO>(@set);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!SetTemplateExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-            return CreatedAtAction("GetSet", new { id = @set.Id }, dto);
+            return NoContent();
         }
 
-        // DELETE: api/Set/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<SetDTO>> DeleteSet(long id)
+        // POST: api/SetTemplate
+        [HttpPost]
+        public async Task<ActionResult<SetTemplateDTO>> PostSetTemplate(SetTemplate setTemplate)
         {
-            var @set = await _context.Sets.FindAsync(id);
+            var workout = await _context.WorkoutTemplates.FindAsync(setTemplate.WorkoutTemplateId);
+            if (workout == null) {
+                return BadRequest();
+            }
+            var person = await _context.People.FindAsync(workout.PersonId);
 
-            var authResult = await _authorisationService.AuthorizeAsync(User, @set.Workout.Person, "SamePerson");
+            var exercise = await _context.Exercises.FindAsync(setTemplate.ExerciseId);
+            if (exercise == null) {
+                return BadRequest();
+            }
+            var person2 = await _context.People.FindAsync(exercise.PersonId);
+
+            var authResult = await _authorisationService.AuthorizeAsync(User, person, "SamePerson");
+            var authResult2 = await _authorisationService.AuthorizeAsync(User, person2, "SamePerson");
+
+            if ((!authResult.Succeeded) || (!authResult2.Succeeded))
+            {
+                return new ForbidResult();
+            }
+
+            _context.SetTemplates.Add(setTemplate);
+            await _context.SaveChangesAsync();
+
+            var dto = _mapper.Map<SetTemplateDTO>(setTemplate);
+
+            return CreatedAtAction("GetSetTemplate", new { id = setTemplate.Id }, dto);
+        }
+
+        // DELETE: api/SetTemplate/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<SetTemplateDTO>> DeleteSetTemplate(long id)
+        {
+            var setTemplate = await _context.SetTemplates.FindAsync(id);
+
+            var authResult = await _authorisationService.AuthorizeAsync(User, setTemplate.WorkoutTemplate.Person, "SamePerson");
 
             if (!authResult.Succeeded)
             {
                 return new ForbidResult();
             }
 
-            if (@set == null)
+            if (setTemplate == null)
             {
                 return NotFound();
             }
 
-            _context.Sets.Remove(@set);
+            _context.SetTemplates.Remove(setTemplate);
             await _context.SaveChangesAsync();
 
-            var dto = _mapper.Map<SetDTO>(@set);
+            var dto = _mapper.Map<SetTemplateDTO>(setTemplate);
 
-            return Ok(dto);
+            return dto;
         }
 
-        private bool SetExists(long id)
+        private bool SetTemplateExists(long id)
         {
-            return _context.Sets.Any(e => e.Id == id);
+            return _context.SetTemplates.Any(e => e.Id == id);
         }
     }
 }

@@ -5,13 +5,10 @@ using AutoMapper;
 
 namespace GymLad.Models
 {
-    public class Workout
+    public class WorkoutTemplateDTO
     {
         public long Id { get; set; }
         public long PersonId { get; set; }
-        public DateTime Time { get; set; }
-
-        public virtual Person Person { get; set; } 
-        public virtual List<Set> Sets { get; set; }
+        public string TemplateName { get; set; }
     }
 }

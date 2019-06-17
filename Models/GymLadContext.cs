@@ -10,10 +10,11 @@ namespace GymLad.Models
         {
 
         }
-
         public virtual DbSet<Exercise> Exercises { get; set; }
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<Workout> Workouts { get; set; }
+        public virtual DbSet<WorkoutTemplate> WorkoutTemplates { get; set; }
         public virtual DbSet<Set> Sets { get; set; }
+        public virtual DbSet<SetTemplate> SetTemplates { get; set; }
     }
 }

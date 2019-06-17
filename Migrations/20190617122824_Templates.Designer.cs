@@ -3,14 +3,16 @@ using System;
 using GymLad.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GymLad.Migrations
 {
     [DbContext(typeof(GymLadContext))]
-    partial class GymLadContextModelSnapshot : ModelSnapshot
+    [Migration("20190617122824_Templates")]
+    partial class Templates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

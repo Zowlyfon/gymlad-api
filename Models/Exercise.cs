@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GymLad.Models
 {
@@ -11,7 +13,8 @@ namespace GymLad.Models
         public string Name { get; set; }
         public float TrainingMax { get; set; }
 
-        public Person Person { get; set; }
-        public IQueryable<Set> Sets { get; set; }
+        public virtual Person Person { get; set; }
+        public virtual List<Set> Sets { get; set; }
+        public virtual List<SetTemplate> SetTemplates { get; set; }
     }
 }

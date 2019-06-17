@@ -13,7 +13,8 @@ namespace GymLad.Models
         public float Weight { get; set; }
         public DateTime DoB { get; set; }
 
-        public IQueryable<Workout> Workouts { get; set; }
-        public IQueryable<Exercise> Exercises { get; set; }
+        public virtual List<Workout> Workouts { get; set; }
+        public virtual List<WorkoutTemplate> WorkoutTemplates { get; set; }
+        public virtual List<Exercise> Exercises { get; set; }
     }
 }
