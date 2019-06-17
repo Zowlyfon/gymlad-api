@@ -5,7 +5,7 @@ COPY gymlad-api/*.csproj .
 RUN dotnet restore
 
 COPY gymlad-api/. .
-WORKDIR /app/gymlad-api
+
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
