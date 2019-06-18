@@ -3,15 +3,17 @@ using System;
 using GymLad.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace GymLad.Migrations
 {
     [DbContext(typeof(GymLadContext))]
-    partial class GymLadContextModelSnapshot : ModelSnapshot
+    [Migration("20190618131934_identityautogen2")]
+    partial class identityautogen2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

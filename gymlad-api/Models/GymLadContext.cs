@@ -11,6 +11,14 @@ namespace GymLad.Models
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Person>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
+        }
+
         public virtual DbSet<Exercise> Exercises { get; set; }
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<Workout> Workouts { get; set; }

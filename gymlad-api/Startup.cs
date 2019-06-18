@@ -56,10 +56,10 @@ namespace GymLad
             });
 
 
-            string connectionString = "Data Source=GymLad.db";
+            string connectionString = "Host=dokku-postgres-gymlad;Password=6b9b767fe2f0c379a9bc72896a4fccca;Username=postgres;Database=gymlad;";
 
             services.AddDbContext<GymLadContext>(opt =>
-                opt.UseLazyLoadingProxies().UseSqlite(connectionString));
+                opt.UseLazyLoadingProxies().UseNpgsql(connectionString));
 
             services.AddDefaultIdentity<Person>()
                 .AddEntityFrameworkStores<GymLadContext>();
