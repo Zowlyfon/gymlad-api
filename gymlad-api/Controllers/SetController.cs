@@ -77,7 +77,7 @@ namespace GymLad.Controllers
             if (exercise == null) {
                 return BadRequest();
             }
-            var person2 = await _context.People.FindAsync(exercise.Person);
+            var person2 = await _context.People.FindAsync(exercise.PersonId);
 
             var authResult = await _authorisationService.AuthorizeAsync(User, person, "SamePerson");
             var authResult2 = await _authorisationService.AuthorizeAsync(User, person2, "SamePerson");
