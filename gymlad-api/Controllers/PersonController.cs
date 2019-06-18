@@ -57,7 +57,7 @@ namespace GymLad.Controllers
             {
                 return BadRequest("Username or Password Invalid");
             }
-            
+
             var result = await _signInManager.CheckPasswordSignInAsync(user, login.Password, lockoutOnFailure: true);
 
             if (result.Succeeded)
@@ -173,7 +173,7 @@ namespace GymLad.Controllers
                 var newUser =  await _userManager.FindByNameAsync(person.UserName);
                 return CreatedAtAction("GetPerson", new { id = newUser.Id }, person);
             }
-            return BadRequest();
+            return BadRequest("One or more fields invalid");
         }
 
         // DELETE: api/Person/5
