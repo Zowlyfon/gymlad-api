@@ -55,8 +55,9 @@ namespace GymLad
                 });
             });
 
-            string connection = Environment.GetEnvironmentVariable("DATABASE_URL");
-            string connectionString = "host=" + connection + ";";
+            string connectionDsn = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+            string connectionString = "Host=dokku-postgres-gymlad;Password=6b9b767fe2f0c379a9bc72896a4fccca;Username=postgres;Database=gymlad;";
 
             services.AddDbContext<GymLadContext>(opt =>
                 opt.UseLazyLoadingProxies().UseNpgsql(connectionString));
