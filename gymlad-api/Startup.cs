@@ -56,7 +56,7 @@ namespace GymLad
             });
 
             services.AddDbContext<GymLadContext>(opt =>
-                opt.UseLazyLoadingProxies().UseSqlite("Data Source=GymLad.db"));
+                opt.UseLazyLoadingProxies().UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL")));
 
             services.AddDefaultIdentity<Person>()
                 .AddEntityFrameworkStores<GymLadContext>();
