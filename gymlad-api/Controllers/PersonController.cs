@@ -74,7 +74,7 @@ namespace GymLad.Controllers
                 return Ok(token);
             }
 
-            return BadRequest();
+            return BadRequest("Username or Password Invalid");
         }
 
         // GET: api/Person/Me
