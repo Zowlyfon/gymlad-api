@@ -52,6 +52,12 @@ namespace GymLad.Controllers
         public async Task<IActionResult> Login(LoginDTO login)
         {
             var user = await _userManager.FindByNameAsync(login.UserName);
+
+            if (user == null)
+            {
+                return BadRequest("Username or Password Invalid");
+            }
+            
             var result = await _signInManager.CheckPasswordSignInAsync(user, login.Password, lockoutOnFailure: true);
 
             if (result.Succeeded)
