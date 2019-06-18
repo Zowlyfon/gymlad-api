@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using GymLad.Models;
@@ -160,17 +161,44 @@ namespace GymLad.Controllers
             return NoContent();
         }
 
+        // PATCH: api/Person/5
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<PersonDTO>> PatchPerson(long id, JsonPatchDocument<Person> patchDoc)
+        {
+            if (patchDoc == null)
+            {
+                return BadRequest();
+            }
+
+            var person = await _context.People.FindAsync(id);
+
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            patchDoc.ApplyTo(person, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(person).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            var dto = _mapper.Map<PersonDTO>(person);
+
+            return Ok(dto);
+        }
+
         // POST: api/Person
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> PostPerson(CreatePersonDTO person)
         {
             var user = _mapper.Map<Person>(person);
-
-            if (user == null)
-            {
-                return BadRequest("User was null");
-            }
 
             var result = await _userManager.CreateAsync(user, person.Password);
 
