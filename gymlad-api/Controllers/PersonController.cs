@@ -166,6 +166,12 @@ namespace GymLad.Controllers
         public async Task<IActionResult> PostPerson(CreatePersonDTO person)
         {
             var user = _mapper.Map<Person>(person);
+
+            if (user == null)
+            {
+                return BadRequest("User was null");
+            }
+
             var result = await _userManager.CreateAsync(user, person.Password);
 
             if (result.Succeeded)
