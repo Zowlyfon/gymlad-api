@@ -55,10 +55,11 @@ namespace GymLad
                 });
             });
 
-            var connection = Environment.GetEnvironmentVariable("DATABASE_URL");
+            string connection = Environment.GetEnvironmentVariable("DATABASE_URL");
+            string connectionString = "host=" + connection + ";";
 
             services.AddDbContext<GymLadContext>(opt =>
-                opt.UseLazyLoadingProxies().UseNpgsql(connection));
+                opt.UseLazyLoadingProxies().UseNpgsql(connectionString));
 
             services.AddDefaultIdentity<Person>()
                 .AddEntityFrameworkStores<GymLadContext>();
