@@ -140,6 +140,13 @@ namespace GymLad.Controllers
                 return BadRequest();
             }
 
+            var authResult = await _authorisationService.AuthorizeAsync(User, person, "SamePerson");
+
+            if (!authResult.Succeeded)
+            {
+                return new ForbidResult();
+            }
+
             _context.Entry(person).State = EntityState.Modified;
 
             try
@@ -171,6 +178,13 @@ namespace GymLad.Controllers
             }
 
             var person = await _context.People.FindAsync(id);
+
+            var authResult = await _authorisationService.AuthorizeAsync(User, person, "SamePerson");
+
+            if (!authResult.Succeeded)
+            {
+                return new ForbidResult();
+            }
 
             if (person == null)
             {
@@ -215,6 +229,14 @@ namespace GymLad.Controllers
         public async Task<ActionResult<Person>> DeletePerson(long id)
         {
             var person = await _context.People.FindAsync(id);
+
+            var authResult = await _authorisationService.AuthorizeAsync(User, person, "SamePerson");
+
+            if (!authResult.Succeeded)
+            {
+                return new ForbidResult();
+            }
+
             if (person == null)
             {
                 return NotFound();
